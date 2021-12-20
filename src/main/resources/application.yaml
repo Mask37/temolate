@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: template
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://106.14.32.81:6603/template?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: 123456
+
+server:
+  port: 8080
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: /app/logs/tomcat/${spring.application.name}
+      pattern: common
+    basedir: /app/logs/tomcat/${spring.application.name}  # 修改tomcat临时目录，文件上传会用到，使用默认的话，长时间（10天左右）不实用会被系统自动删除
+    threads:
+      min-spare: 10 # 最小工作空闲线程数，默认10。（适当增大一些，以便应对突然增长的访问量）
+      max: 500 # tomcat线程池，4核8G的推荐800左右， 我们有些是2核4G的，所以可以设置500
+
+management:
+  endpoint:
+    health:
+      show-details: always
